@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import AuthContext from "../../contexts/auth-context";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import * as actionTypes from "../../store/actions";
 
 
 export class Register extends Component {
@@ -18,6 +21,8 @@ export class Register extends Component {
         authenticated: true
       });
 
+      
+
       this.props.history.push("list")
     }
     
@@ -32,7 +37,7 @@ export class Register extends Component {
       [name]: value
     });
 
-  }
+  }  
 
   onBlurHandler = () => {
     this.setState({
@@ -50,6 +55,10 @@ export class Register extends Component {
       localStorage.setItem("name", name);
       localStorage.setItem("lastname", lastname);
       localStorage.setItem("authenticated", "true");
+
+      this.props.onInputHandler({
+        name, lastname, auth: true
+      })
       
       this.context.login({
         name: name,
@@ -96,4 +105,16 @@ export class Register extends Component {
   }
 }
 
-export default withRouter(Register);
+const mapStateToProps = state => {
+  return {
+    inputName: state.name,
+    inputLastname: state.lastname
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onInputHandler: (inputs) => dispatch({type: actionTypes.SAFE_USER_INFO, val: inputs }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register));

@@ -8,6 +8,11 @@ import AdvertForm from '../AdvertForm/AdvertForm';
 import AuthContext from '../../contexts/auth-context';
 import Icon from '@material-ui/core/Icon';
 
+
+import { connect } from "react-redux";
+
+import * as actionTypes from "../../store/actions";
+
 export class Layout extends Component {
 
   static contextType = AuthContext;
@@ -21,6 +26,12 @@ export class Layout extends Component {
   logOutHandler = () => {
    localStorage.clear();
     
+   this.props.onLogout({
+    name: "",
+    lastname: "",
+    authenticated: false,
+   })
+
    this.context.login({
      name: "",
      lastname: "",
@@ -41,8 +52,8 @@ export class Layout extends Component {
           
           <h2 className="text-white">Wallakeep </h2>
           <span>
-            <span className="text-white">{this.context.name} {this.context.lastname}</span>
-            {this.context.authenticated &&
+            <span className="text-white">{this.props.storeName} {this.props.storeLastname}</span>
+            {this.props.storeAuth &&
               <span className="text-white ml-1" onClick={this.logOutHandler}>
                 |<span className="text-white ml-1 logout">Logout</span>
               </span>
@@ -64,4 +75,19 @@ export class Layout extends Component {
   }
 }
 
-export default withRouter(Layout);
+const mapStateToProps = state => {
+  return {
+    storeName: state.name,
+    storeLastname: state.lastname,
+    storeAuth: state.authenticated
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch({type: actionTypes.LOGOUT})
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Layout));

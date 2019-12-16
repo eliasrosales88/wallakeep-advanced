@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from "react-redux";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { reducer } from "./store/reducer";
+import  reducer from "./store/reducer";
 
-const store = createStore(reducer);
+const composeEnhancers = composeWithDevTools({
+  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+const store = createStore(reducer, composeEnhancers( applyMiddleware()))
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
