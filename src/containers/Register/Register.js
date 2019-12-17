@@ -113,7 +113,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onInputHandler: (inputs) => dispatch({type: actionTypes.SAFE_USER_INFO, val: inputs }),
+    onInputHandler: (inputs) => dispatch({type: actionTypes.LOGIN, val: inputs }),
   }
 }
 

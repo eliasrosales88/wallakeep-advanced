@@ -3,6 +3,8 @@ import Advert from "../../components/Advert/Advert";
 import Axios from 'axios';
 import { withRouter } from "react-router-dom";
 import AuthContext from "../../contexts/auth-context";
+import * as actionTypes from "../../store/actions";
+import { connect } from 'react-redux';
 
 
 export class AdvertDetail extends Component {
@@ -29,6 +31,7 @@ export class AdvertDetail extends Component {
     })
 
     localStorage.setItem("back", true);
+    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
   }
 
   componentWillUnmount(){
@@ -66,4 +69,16 @@ export class AdvertDetail extends Component {
   }
 }
 
-export default withRouter(AdvertDetail);
+
+const mapStateToProps = state => {
+  return {
+   
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    enableBack: (val) => dispatch({type: actionTypes.NAVIGATION, val })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdvertDetail));

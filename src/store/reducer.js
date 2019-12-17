@@ -7,7 +7,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SAFE_USER_INFO:
+    case actionTypes.LOGIN:
       return {
         ...state,
         name: action.val.name,
@@ -21,6 +21,13 @@ const reducer = (state = initialState, action) => {
         name: "",
         lastname: "",
         authenticated: false,
+        back: false
+      }
+
+    case actionTypes.NAVIGATION:
+      return {
+        ...state,
+        back: action.val
       }
 
     default:

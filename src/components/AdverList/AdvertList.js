@@ -4,6 +4,11 @@ import Advert from '../Advert/Advert';
 import  AuthContext  from "../../contexts/auth-context";
 import { withRouter } from "react-router-dom";
 
+import { connect } from "react-redux";
+
+import * as actionTypes from "../../store/actions";
+
+
 
 class AdvertList extends Component {
   
@@ -36,12 +41,15 @@ class AdvertList extends Component {
   }
 
   componentWillUnmount(){
-    this.context.login({
-      name: localStorage.getItem("name"),
-      lastname: localStorage.getItem("lastname"),
-      authenticated: localStorage.getItem("authenticated"),
-      back: false
-    })
+    // this.context.login({
+    //   name: localStorage.getItem("name"),
+    //   lastname: localStorage.getItem("lastname"),
+    //   authenticated: localStorage.getItem("authenticated"),
+    //   back: false
+    // })
+
+    localStorage.setItem("back", false);
+    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
   }
 
   // FILTERS
@@ -68,11 +76,9 @@ class AdvertList extends Component {
 
   filterTagHandler = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     
     Axios.get("http://localhost:3001/apiv1/anuncios?tag=" + value)
       .then((response)=>{
-        console.log(response);
         this.setState({
           advert: response.data.results,
           filters: {
@@ -104,7 +110,6 @@ class AdvertList extends Component {
     
     Axios.get("http://localhost:3001/apiv1/anuncios?price="+ priceMin + "-" + priceMax)
       .then((response)=>{
-        console.log(response);
         this.setState({
           advert: response.data.results,
           filters: {
@@ -196,4 +201,15 @@ class AdvertList extends Component {
   }
 }
 
-export default withRouter(AdvertList);
+const mapStateToProps = state => {
+  return {
+
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    enableBack: (val) => dispatch({type: actionTypes.NAVIGATION, val }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdvertList));

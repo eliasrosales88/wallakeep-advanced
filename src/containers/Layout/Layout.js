@@ -32,22 +32,26 @@ export class Layout extends Component {
     authenticated: false,
    })
 
-   this.context.login({
-     name: "",
-     lastname: "",
-     authenticated: false,
-     back: false
-   });
+  //  this.context.login({
+  //    name: "",
+  //    lastname: "",
+  //    authenticated: false,
+  //    back: false
+  //  });
    this.props.history.replace("/");
+  }
+  backHandler = () => {
+    this.props.enableBack(false); 
+    this.props.history.goBack();
   }
 
   render() {
     return (
       <Fragment>
         <nav className="navbar navbar-dark bg-primary">
-          {this.context.back &&
+          {this.props.storeBack &&
         
-            <span className="text-white" onClick={this.props.history.goBack}><Icon>arrow_back</Icon></span>
+            <span className="text-white" onClick={this.backHandler}><Icon>arrow_back</Icon></span>
           }
           
           <h2 className="text-white">Wallakeep </h2>
@@ -79,13 +83,15 @@ const mapStateToProps = state => {
   return {
     storeName: state.name,
     storeLastname: state.lastname,
-    storeAuth: state.authenticated
+    storeAuth: state.authenticated,
+    storeBack: state.back
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch({type: actionTypes.LOGOUT})
+    onLogout: () => dispatch({type: actionTypes.LOGOUT}),
+    enableBack: (val) => dispatch({type: actionTypes.NAVIGATION, val })
 
   }
 }
