@@ -3,7 +3,7 @@ import AuthContext from "../../contexts/auth-context";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import * as actionTypes from "../../store/actions";
+import * as actions from "../../store/actions";
 
 
 export class Register extends Component {
@@ -113,7 +113,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onInputHandler: (inputs) => dispatch({type: actionTypes.LOGIN, val: inputs }),
+    onInputHandler: (inputs) => dispatch({type: actions.LOGIN, val: inputs }),
   }
 }
 

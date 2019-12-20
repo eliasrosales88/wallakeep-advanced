@@ -1,13 +1,16 @@
-import * as actionTypes from "./actions";
+import * as actions from "./actions";
 const initialState = {
   name: localStorage.getItem("name") || "",
   lastname: localStorage.getItem("lastname") || "",
   authenticated: localStorage.getItem("authenticated") || false,
+  error: false,
+  adverts: [],
+  filters: {}
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.LOGIN:
+    case actions.LOGIN:
       return {
         ...state,
         name: action.val.name,
@@ -15,7 +18,7 @@ const reducer = (state = initialState, action) => {
         authenticated: action.val.auth
       };
 
-    case actionTypes.LOGOUT:
+    case actions.LOGOUT:
       return {
         ...state,
         name: "",
@@ -24,11 +27,41 @@ const reducer = (state = initialState, action) => {
         back: false
       }
 
-    case actionTypes.NAVIGATION:
+    case actions.NAVIGATION:
       return {
         ...state,
         back: action.val
       }
+
+    case actions.SET_ADVERTS:
+      return {
+        ...state,
+        adverts: action.adverts
+      };
+
+    case actions.SET_TAG_FILTERS:
+      return {
+        ...state,
+        filters: action.filters
+      };
+
+    case actions.SET_TYPE_FILTERS:
+      return {
+        ...state,
+        filters: action.filters
+      };
+
+    case actions.SET_FILTERS:
+      return {
+        ...state,
+        filters: action.filters
+      };
+
+    case actions.FETCH_ADVERTS_FAILED:
+      return {
+        ...state,
+        error: true
+      };
 
     default:
       return {

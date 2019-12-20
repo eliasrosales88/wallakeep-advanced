@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
@@ -14,7 +15,7 @@ import  reducer from "./store/reducer";
 const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
-const store = createStore(reducer, composeEnhancers( applyMiddleware()))
+const store = createStore(reducer, composeEnhancers( applyMiddleware(thunk)))
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

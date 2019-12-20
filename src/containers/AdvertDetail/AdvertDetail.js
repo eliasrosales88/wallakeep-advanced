@@ -3,7 +3,7 @@ import Advert from "../../components/Advert/Advert";
 import Axios from 'axios';
 import { withRouter } from "react-router-dom";
 import AuthContext from "../../contexts/auth-context";
-import * as actionTypes from "../../store/actions";
+import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
 
@@ -77,7 +77,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: actionTypes.NAVIGATION, val })
+    enableBack: (val) => dispatch({type: actions.NAVIGATION, val })
   }
 }
 

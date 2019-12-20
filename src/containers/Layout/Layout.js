@@ -11,7 +11,7 @@ import Icon from '@material-ui/core/Icon';
 
 import { connect } from "react-redux";
 
-import * as actionTypes from "../../store/actions";
+import * as actions from "../../store/actions";
 
 export class Layout extends Component {
 
@@ -90,8 +90,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch({type: actionTypes.LOGOUT}),
-    enableBack: (val) => dispatch({type: actionTypes.NAVIGATION, val })
+    onLogout: () => dispatch({type: actions.LOGOUT}),
+    enableBack: (val) => dispatch({type: actions.NAVIGATION, val })
 
   }
 }
