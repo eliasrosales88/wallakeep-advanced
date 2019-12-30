@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import Axios from 'axios';
 import Advert from '../Advert/Advert';
 import  AuthContext  from "../../contexts/auth-context";
 import { withRouter } from "react-router-dom";
