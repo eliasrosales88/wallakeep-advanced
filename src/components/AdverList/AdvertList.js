@@ -7,13 +7,10 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 
-
-
 class AdvertList extends Component {
   
   // Adding context
   static contextType = AuthContext;
-  
   
   state = {
     advert: [],
@@ -28,28 +25,9 @@ class AdvertList extends Component {
   
   componentDidMount () {
     this.props.onFetchAdverts();
-    
-    // if (!this.context.authenticated) {
-    //   this.props.history.replace("/");
-    //   return;
-    // }
-
-    // Axios.get( "http://localhost:3001/apiv1/anuncios" )
-    //   .then( response => {
-    //     this.setState({advert: response.data.results})
-    //   })
-
-      
   }
 
   componentWillUnmount(){
-    // this.context.login({
-    //   name: localStorage.getItem("name"),
-    //   lastname: localStorage.getItem("lastname"),
-    //   authenticated: localStorage.getItem("authenticated"),
-    //   back: false
-    // })
-
     localStorage.setItem("back", false);
     this.props.enableBack(JSON.parse(localStorage.getItem("back")));
   }
@@ -65,20 +43,7 @@ class AdvertList extends Component {
     })
 
     this.props.onSetTypeFilters(value, "?venta=" + (value === "sell" ? "true" : "false"))
-    // Axios.get("http://localhost:3001/apiv1/anuncios?venta=" + (value === "sell" ? "true" : "false"))
-    //   .then((response)=>{
-    //     this.setState({
-    //       advert: response.data.results,
-    //       filters: {
-    //         ...this.state.filters,
-    //         [name]:value
-    //       }
-    //     })
-    //   },
-    //   (err)=>{
-    //     console.error(err);
-    //   }
-    //   )
+    
   }
 
   filterTagHandler = (event) => {
@@ -90,24 +55,8 @@ class AdvertList extends Component {
       }
     })
     
-    console.log(value);
-    
-    
     this.props.onSetTagFilters(value, `?tag=${value}`)
-    // Axios.get("http://localhost:3001/apiv1/anuncios?tag=" + value)
-    //   .then((response)=>{
-    //     this.setState({
-    //       advert: response.data.results,
-    //       filters: {
-    //         ...this.state.filters,
-    //         [name]:value
-    //       }
-    //     })
-    //   },
-    //   (err)=>{
-    //     console.error(err);
-    //   }
-    //   )
+    
   }
 
   inputPriceHandler = (event) => {
@@ -123,24 +72,8 @@ class AdvertList extends Component {
   onSubmitPrice = (event) =>{
     event.preventDefault();
     const { priceMin, priceMax } = this.state.filters;
-    console.log(this.state.filters);
-    
+        
     this.props.onSetPriceFilters( priceMin, priceMax, `?price=${priceMin}-${priceMax}`);
-    
-    // Axios.get("http://localhost:3001/apiv1/anuncios?price="+ priceMin + "-" + priceMax)
-    //   .then((response)=>{
-    //     this.setState({
-    //       advert: response.data.results,
-    //       filters: {
-    //         priceMin: priceMin, 
-    //         priceMax: priceMax, 
-    //       }
-    //     })
-    //   },
-    //   (err)=>{
-    //     console.error(err);
-    //   }
-    //   )
 
   }
 
