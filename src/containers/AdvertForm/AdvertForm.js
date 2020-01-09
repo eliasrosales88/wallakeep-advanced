@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom";
 import Axios from 'axios';
 import AuthContext from "../../contexts/auth-context";
+import * as actions from "../../store/actions";
+import { connect } from 'react-redux';
 
 export class AdvertForm extends Component {
 
@@ -39,6 +41,7 @@ export class AdvertForm extends Component {
     })
 
     localStorage.setItem("back", true);
+    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
     
     
     Axios.get( "http://localhost:3001/apiv1/tags" )
@@ -347,4 +350,15 @@ export class AdvertForm extends Component {
   }
 }
 
-export default withRouter(AdvertForm);
+const mapStateToProps = state => {
+  return {
+   
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    enableBack: (val) => dispatch({type: actions.NAVIGATION, val })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdvertForm));

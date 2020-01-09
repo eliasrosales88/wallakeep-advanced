@@ -1,9 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withRouter } from "react-router-dom";
 
 
 const Advert = ( props ) => {
-  const {photo, name, description, price, id, history, type, tags=[], buttonsActive = true} = props;
+  const {photo, name, description, price, id, history, type, tags=[], areBbuttonsActive = true} = props;
+  const [buttonsActive, setButtonsActive] = useState(areBbuttonsActive);
+
+  const toggleHandler = () => {
+    setButtonsActive(!buttonsActive);
+  }
   
   const detailHandler = () => {
     history.push("advert/"+ id)
@@ -34,7 +39,10 @@ const Advert = ( props ) => {
             )
             })
           }
-
+          <hr />
+          <br />
+          <button onClick={toggleHandler} className="btn btn-success">Toggle buttons</button>
+          
           {buttonsActive &&
             <div className="mt-1">
               <button onClick={detailHandler} className="btn btn-primary">More</button>

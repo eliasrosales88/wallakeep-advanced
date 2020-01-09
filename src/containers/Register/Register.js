@@ -34,8 +34,7 @@ export class Register extends Component {
   
   inputHandler = (event) => {
     event.persist();
-    console.log("ssss",event);
-    
+       
     const { name, value } = event.target;
 
     this.setState({
@@ -52,8 +51,7 @@ export class Register extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
-    
+       
     const { name, lastname } = this.state;
 
     this.onBlurHandler();

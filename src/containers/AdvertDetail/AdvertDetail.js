@@ -19,7 +19,7 @@ export class AdvertDetail extends Component {
   componentDidMount(){
     Axios.get( "http://localhost:3001/apiv1/anuncios/"+ this.props.match.params.id )
     .then( response => {
-      console.log(response.data.result.tags);
+      
       
       this.setState({advert: response.data.result})
     })
@@ -37,14 +37,14 @@ export class AdvertDetail extends Component {
   componentWillUnmount(){
     localStorage.setItem("back", false);
 
-    this.context.login({
-      name: localStorage.getItem("name"),
-      lastname: localStorage.getItem("lastname"),
-      authenticated: localStorage.getItem("authenticated"),
-      back: JSON.parse(localStorage.getItem("back"))
-    })
+    // this.context.login({
+    //   name: localStorage.getItem("name"),
+    //   lastname: localStorage.getItem("lastname"),
+    //   authenticated: localStorage.getItem("authenticated"),
+    //   back: JSON.parse(localStorage.getItem("back"))
+    // })
     
-    console.log(this.context);
+    
     
   }
 

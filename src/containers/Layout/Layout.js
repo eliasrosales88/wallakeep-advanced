@@ -5,7 +5,7 @@ import Register from '../Register/Register';
 import AdvertDetail from '../AdvertDetail/AdvertDetail';
 import AdvertForm from '../AdvertForm/AdvertForm';
 
-import AuthContext from '../../contexts/auth-context';
+// import AuthContext from '../../contexts/auth-context';
 import Icon from '@material-ui/core/Icon';
 
 
@@ -15,7 +15,7 @@ import * as actions from "../../store/actions";
 
 export class Layout extends Component {
 
-  static contextType = AuthContext;
+  // static contextType = AuthContext;
 
   componentDidMount(){}
   
@@ -40,6 +40,7 @@ export class Layout extends Component {
   //  });
    this.props.history.replace("/");
   }
+  
   backHandler = () => {
     this.props.enableBack(false); 
     this.props.history.goBack();

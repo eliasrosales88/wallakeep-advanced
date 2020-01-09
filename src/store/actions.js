@@ -14,8 +14,7 @@ const API_URL = 'http://localhost:3001/apiv1/anuncios';
 
 
 export const setAdverts = ( response ) => {
-  console.log(response);
-  
+   
   return {
       type: SET_ADVERTS,
       adverts: response.results
@@ -39,8 +38,7 @@ export const setTagFilters = (tags ) => {
   };
 };
 export const setPriceFilters = (priceMin, priceMax ) => {
-  console.log(priceMin, priceMax);
-  
+   
   return {
       type: SET_FILTERS,
       filters: {
@@ -97,8 +95,7 @@ export const loadPriceFilters = (priceMin, priceMax, API_FILTER) => {
   return dispatch => {
     Axios.get( API_URL + API_FILTER )
           .then( response => {
-            console.log(response);
-            
+                       
             dispatch(setAdverts(response.data));
             dispatch(setPriceFilters(priceMin, priceMax));
           } )
