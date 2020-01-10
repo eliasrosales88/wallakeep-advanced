@@ -82,10 +82,10 @@ export class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    storeName: state.name,
-    storeLastname: state.lastname,
-    storeAuth: state.authenticated,
-    storeBack: state.back
+    storeName: state.auth.name,
+    storeLastname: state.auth.lastname,
+    storeAuth: state.auth.authenticated,
+    storeBack: state.nav.back
   };
 }
 

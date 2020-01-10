@@ -6,12 +6,13 @@ const Advert = ( props ) => {
   const {photo, name, description, price, id, history, type, tags=[], areBbuttonsActive = true} = props;
   const [buttonsActive, setButtonsActive] = useState(areBbuttonsActive);
 
+    
   const toggleHandler = () => {
     setButtonsActive(!buttonsActive);
   }
   
   const detailHandler = () => {
-    history.push("advert/"+ id)
+    history.push("advert/"+ id);
   }
   
   const editHandler = () => {
@@ -41,9 +42,12 @@ const Advert = ( props ) => {
           }
           <hr />
           <br />
+          {!history.location.pathname.includes("/advert/") &&
+
           <button onClick={toggleHandler} className="btn btn-success">Toggle buttons</button>
+          }
           
-          {buttonsActive &&
+          {buttonsActive && !history.location.pathname.includes("/advert/") &&
             <div className="mt-1">
               <button onClick={detailHandler} className="btn btn-primary">More</button>
               <button onClick={editHandler} className="btn btn-warning ml-1">Edit</button>

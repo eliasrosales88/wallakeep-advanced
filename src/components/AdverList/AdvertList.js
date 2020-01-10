@@ -155,7 +155,7 @@ class AdvertList extends Component {
 
 const mapStateToProps = state => {
   return {
-    storeAdverts: state.adverts
+    storeAdverts: state.list.adverts
 
   };
 }
