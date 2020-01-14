@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 
-class AdvertList extends Component {
+export class AdvertList extends Component {
   
   // Adding context
   static contextType = AuthContext;

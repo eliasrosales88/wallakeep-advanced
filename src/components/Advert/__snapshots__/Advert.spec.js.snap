@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Advert should render 1`] = `
+<Fragment>
+  <div
+    className="card"
+  >
+    <img
+      alt="A name"
+      className="card-img-top"
+      src="string"
+    />
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      >
+        A name
+      </h5>
+      <p
+        className="card-text"
+      >
+        <b>
+          Precio: 
+          3999.99
+          $
+        </b>
+      </p>
+      <p
+        className="card-text"
+      >
+        A description
+      </p>
+      <p>
+        <span
+          className="badge badge-success p-2"
+        >
+          buy
+        </span>
+      </p>
+      <span
+        className="badge badge-primary ml-1"
+      >
+        lifestyle
+      </span>
+      <span
+        className="badge badge-primary ml-1"
+      >
+        motor
+      </span>
+      <hr />
+      <br />
+    </div>
+  </div>
+</Fragment>
+`;
