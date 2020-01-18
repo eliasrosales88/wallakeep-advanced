@@ -5,17 +5,13 @@ import Register from '../Register/Register';
 import AdvertDetail from '../AdvertDetail/AdvertDetail';
 import AdvertForm from '../AdvertForm/AdvertForm';
 
-// import AuthContext from '../../contexts/auth-context';
 import Icon from '@material-ui/core/Icon';
-
 
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 
 export class Layout extends Component {
-
-  // static contextType = AuthContext;
 
   componentDidMount(){}
   
@@ -32,12 +28,6 @@ export class Layout extends Component {
     authenticated: false,
    })
 
-  //  this.context.login({
-  //    name: "",
-  //    lastname: "",
-  //    authenticated: false,
-  //    back: false
-  //  });
    this.props.history.replace("/");
   }
   
@@ -47,6 +37,8 @@ export class Layout extends Component {
   }
 
   render() {
+    console.log(this.props);
+    
     return (
       <Fragment>
         <nav className="navbar navbar-dark bg-primary">

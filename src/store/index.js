@@ -1,10 +1,13 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { connectRouter } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import * as reducers from './reducers';
+
+import  authReducer from "./reducers/auth";
+import  navReducer from "./reducers/nav";
+import  errorReducer from "./reducers/error";
+import  listReducer from "./reducers/list";
 
 const configureMiddleware = ({ ...thunkExtraArgument }) => {
   const middlewares = [
@@ -17,13 +20,31 @@ const configureMiddleware = ({ ...thunkExtraArgument }) => {
   return middlewares;
 };
 
+
+const createRootReducer = compose(combineReducers)
+
+
+
+
+
+
+
 export const configureStore = config => preloadedState => {
   const middlewares = configureMiddleware(config);
   const composeEnhancers = composeWithDevTools;
 
   const store = createStore(
+    createRootReducer({
+      auth: authReducer,
+      nav: navReducer,
+      err: errorReducer,
+      list: listReducer
+    }),
     preloadedState,
     composeEnhancers(applyMiddleware(...middlewares)),
   );
+
+
+  
   return store;
 };
