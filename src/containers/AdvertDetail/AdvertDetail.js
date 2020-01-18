@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Advert from "../../components/Advert/Advert";
 import Axios from 'axios';
 import { withRouter } from "react-router-dom";
-import AuthContext from "../../contexts/auth-context";
 import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
@@ -13,7 +12,7 @@ export class AdvertDetail extends Component {
     advert: ""
   }
 
-  static contextType = AuthContext;
+
 
 
   componentDidMount(){

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import Advert from '../Advert/Advert';
-import  AuthContext  from "../../contexts/auth-context";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -9,9 +8,7 @@ import * as actions from "../../store/actions";
 
 export class AdvertList extends Component {
   
-  // Adding context
-  static contextType = AuthContext;
-  
+
   state = {
     advert: [],
     filters: {

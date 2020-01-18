@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom";
 import Axios from 'axios';
-import AuthContext from "../../contexts/auth-context";
 import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
@@ -21,7 +20,6 @@ export class AdvertForm extends Component {
     submitted: false
   };
 
-  static contextType = AuthContext;
   
   
   componentDidMount(){
