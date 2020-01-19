@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
-import * as types from "../../store/types";
 
 export class AdvertList extends Component {
   

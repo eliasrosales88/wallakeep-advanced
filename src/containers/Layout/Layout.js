@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 import * as types from "../../store/types";
+import PrivateRoute from '../../PrivateRoute/PrivateRoute';
 
 export class Layout extends Component {
 
@@ -61,9 +62,9 @@ export class Layout extends Component {
           {this.props.children}
           <Switch>
             <Route exact path="/" component={Register} />
-            <Route path="/list" component={AdvertList} />
-            <Route path="/advert/:type/:id/" component={AdvertForm} />
-            <Route path="/advert/:id" component={AdvertDetail} />
+            <PrivateRoute path="/list" component={AdvertList} />
+            <PrivateRoute path="/advert/:type/:id/" component={AdvertForm} />
+            <PrivateRoute path="/advert/:id" component={AdvertDetail} />
           </Switch>
         </main>
         <footer className="bg-dark p-2 text-center text-white">Wallakeep</footer>

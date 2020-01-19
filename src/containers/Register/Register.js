@@ -22,9 +22,7 @@ export class Register extends Component {
   componentDidMount() {
     
     if (this.props.storeAuth) {
-      this.setState({
-        authenticated: true
-      });   
+   
 
       this.props.history.push("list")
     }
