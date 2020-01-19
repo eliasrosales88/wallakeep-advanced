@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
     case types.NAVIGATION:
       return {
         ...state,
-        back: action.val
+        back: action.back
       }
 
     default:

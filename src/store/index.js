@@ -21,7 +21,17 @@ const configureMiddleware = ({ ...thunkExtraArgument }) => {
 };
 
 
-const createRootReducer = compose(combineReducers)
+const lastActionReducerEnhancer = reducer => (
+  { lastAction, ...state },
+  action,
+) => ({
+  ...reducer(state, action),
+  lastAction: action,
+});
+
+
+
+const createRootReducer = compose(lastActionReducerEnhancer, combineReducers)
 
 
 

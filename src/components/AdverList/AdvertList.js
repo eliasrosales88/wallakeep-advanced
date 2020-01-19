@@ -26,8 +26,7 @@ export class AdvertList extends Component {
   }
 
   componentWillUnmount(){
-    localStorage.setItem("back", false);
-    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
+    this.props.onEnableBack(false);
   }
 
   // FILTERS
@@ -159,7 +158,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: types.NAVIGATION, val }),
+    onEnableBack: (val) => dispatch(actions.setNav(val)),
     onFetchAdverts: () => dispatch(actions.loadAdverts()),
     onSetTypeFilters: (type, filter) => dispatch(actions.loadTypeFilters(type, filter)),
     onSetTagFilters: (tag, filter) => dispatch(actions.loadTagFilters(tag, filter)),

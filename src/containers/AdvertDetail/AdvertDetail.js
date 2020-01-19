@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Advert from "../../components/Advert/Advert";
 import Axios from 'axios';
 import { withRouter } from "react-router-dom";
-import * as types from "../../store/types";
+import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
 
@@ -24,12 +24,15 @@ export class AdvertDetail extends Component {
     })
 
 
-    localStorage.setItem("back", true);
-    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
+    
+    this.props.onEnableBack(true);
+    
+
+    
   }
 
   componentWillUnmount(){
-    localStorage.setItem("back", false);
+    this.props.onEnableBack(false);
 
     
     
@@ -65,7 +68,11 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: types.NAVIGATION, val })
+    onEnableBack: (val) => {
+      console.log(val);
+        
+      dispatch(actions.setNav(val))
+    }
   }
 }
 

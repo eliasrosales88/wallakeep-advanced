@@ -9,7 +9,6 @@ import Input from '../../components/Form/Input'
 import Button from '../../components/Form/Button';
 import Label from '../../components/Form/Label';
 
-import LocalStorage from "../../utils/Storage";
 
 
 export class Register extends Component {
@@ -21,12 +20,8 @@ export class Register extends Component {
 
 
   componentDidMount() {
-
-    // CONDICIONAR EL ACCESO DEL REGISTER TOMANDO DEL LOCAL STORAGE
-    // REMOVER LAS LLAMADAS DEL LOCALSTORAGE QUE EXISTEN EN EL REDUX.
-    console.log(LocalStorage.readLocalStorage());
     
-    if (localStorage.getItem("authenticated")) {
+    if (this.props.storeAuth) {
       this.setState({
         authenticated: true
       });   
@@ -64,23 +59,11 @@ export class Register extends Component {
 
     if (name.length > 0 && lastname.length > 0) {
 
-      LocalStorage.saveLocalStorage({
-        auth:{
-          name,
-          lastname,
-          authenticated: true
-        }
-    });
-
-      // FALTA TERMINAR DE ENLAZAR EL METODO UTILS DE LOCALSTORAGE
-      // localStorage.setItem("name", name);
-      // localStorage.setItem("lastname", lastname);
-      // localStorage.setItem("authenticated", "true");
-
       this.props.onInputHandler({
         name, lastname, auth: true
       })
       
+      this.props.onSaveSession();
 
 
       this.props.history.push("list");
@@ -129,12 +112,14 @@ export class Register extends Component {
 const mapStateToProps = state => {
   return {
     inputName: state.name,
-    inputLastname: state.lastname
+    inputLastname: state.lastname,
+    storeAuth: state.auth.authenticated
   };
 }
 const mapDispatchToProps = dispatch => {
   return {
     onInputHandler: (inputs) => dispatch({type: types.LOGIN, val: inputs }),
+    onSaveSession: () => dispatch({type: types.SESSION_SAVE})
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom";
 import Axios from 'axios';
-import * as types from "../../store/types";
+import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
 export class AdvertForm extends Component {
@@ -32,8 +32,7 @@ export class AdvertForm extends Component {
     }
 
 
-    localStorage.setItem("back", true);
-    this.props.enableBack(JSON.parse(localStorage.getItem("back")));
+    this.props.onEnableBack(true);
     
     
     Axios.get( "http://localhost:3001/apiv1/tags" )
@@ -44,7 +43,7 @@ export class AdvertForm extends Component {
   }
 
   componentWillUnmount(){
-    localStorage.setItem("back", false);
+    this.props.onEnableBack(false);
 
 
   }
@@ -344,7 +343,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: types.NAVIGATION, val })
+    onEnableBack: (val) => dispatch(actions.setNav(val))
   }
 }
 
