@@ -9,24 +9,31 @@ import Icon from '@material-ui/core/Icon';
 
 import { connect } from "react-redux";
 
-import * as actions from "../../store/actions";
+import * as types from "../../store/types";
+import LocalStorage from '../../utils/Storage';
 
 export class Layout extends Component {
 
-  componentDidMount(){}
+  componentDidMount(){
+
+    
+  }
   
   componentDidUpdate(){
     
   }
 
   logOutHandler = () => {
-   localStorage.clear();
+  
+    LocalStorage.clearLocalStorage();
+  
+    //  localStorage.clear();
     
-   this.props.onLogout({
-    name: "",
-    lastname: "",
-    authenticated: false,
-   })
+  //  this.props.onLogout({
+  //   name: "",
+  //   lastname: "",
+  //   authenticated: false,
+  //  })
 
    this.props.history.replace("/");
   }
@@ -37,7 +44,7 @@ export class Layout extends Component {
   }
 
   render() {
-    console.log(this.props);
+    console.log('storeAuth', this.props.storeAuth);
     
     return (
       <Fragment>
@@ -83,8 +90,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch({type: actions.LOGOUT}),
-    enableBack: (val) => dispatch({type: actions.NAVIGATION, val })
+    onLogout: () => dispatch({type: types.LOGOUT}),
+    enableBack: (val) => dispatch({type: types.NAVIGATION, val })
 
   }
 }

@@ -1,4 +1,4 @@
-import * as actions from "../actions";
+import * as types from "../types";
 const initialState = {
   error: false,
 }
@@ -6,7 +6,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actions.FETCH_ADVERTS_FAILED:
+    case types.FETCH_ADVERTS_FAILED:
       return {
         ...state,
         error: true

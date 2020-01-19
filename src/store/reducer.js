@@ -1,4 +1,4 @@
-import * as actions from "./actions";
+import * as types from "./types";
 const initialState = {
   adverts: [],
   filters: {}
@@ -7,31 +7,31 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actions.SET_ADVERTS:
+    case types.SET_ADVERTS:
       return {
         ...state,
         adverts: action.adverts
       };
 
-    case actions.SET_TAG_FILTERS:
+    case types.SET_TAG_FILTERS:
       return {
         ...state,
         filters: action.filters
       };
 
-    case actions.SET_TYPE_FILTERS:
+    case types.SET_TYPE_FILTERS:
       return {
         ...state,
         filters: action.filters
       };
 
-    case actions.SET_FILTERS:
+    case types.SET_FILTERS:
       return {
         ...state,
         filters: action.filters
       };
 
-    case actions.FETCH_ADVERTS_FAILED:
+    case types.FETCH_ADVERTS_FAILED:
       return {
         ...state,
         error: true

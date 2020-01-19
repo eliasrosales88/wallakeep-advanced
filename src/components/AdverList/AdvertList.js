@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
+import * as types from "../../store/types";
 
 export class AdvertList extends Component {
   
@@ -158,7 +159,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: actions.NAVIGATION, val }),
+    enableBack: (val) => dispatch({type: types.NAVIGATION, val }),
     onFetchAdverts: () => dispatch(actions.loadAdverts()),
     onSetTypeFilters: (type, filter) => dispatch(actions.loadTypeFilters(type, filter)),
     onSetTagFilters: (tag, filter) => dispatch(actions.loadTagFilters(tag, filter)),

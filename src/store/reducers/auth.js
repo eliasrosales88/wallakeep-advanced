@@ -1,14 +1,14 @@
-import * as actions from "../actions";
+import * as types from "../types";
 const initialState = {
-  name: localStorage.getItem("name") || "",
-  lastname: localStorage.getItem("lastname") || "",
-  authenticated: localStorage.getItem("authenticated") || false,
+  name: "",
+  lastname: "",
+  authenticated: false,
   
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.LOGIN:
+    case types.LOGIN:
       return {
         ...state,
         name: action.val.name,
@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
         authenticated: action.val.auth
       };
 
-    case actions.LOGOUT:
+    case types.LOGOUT:
       return {
         ...state,
         name: "",

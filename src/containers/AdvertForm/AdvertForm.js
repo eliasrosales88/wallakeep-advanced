@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom";
 import Axios from 'axios';
-import * as actions from "../../store/actions";
+import * as types from "../../store/types";
 import { connect } from 'react-redux';
 
 export class AdvertForm extends Component {
@@ -31,12 +31,6 @@ export class AdvertForm extends Component {
       
     }
 
-    this.context.login({
-      name: localStorage.getItem("name"),
-      lastname: localStorage.getItem("lastname"),
-      authenticated: localStorage.getItem("authenticated"),
-      back: true
-    })
 
     localStorage.setItem("back", true);
     this.props.enableBack(JSON.parse(localStorage.getItem("back")));
@@ -52,12 +46,7 @@ export class AdvertForm extends Component {
   componentWillUnmount(){
     localStorage.setItem("back", false);
 
-    this.context.login({
-      name: localStorage.getItem("name"),
-      lastname: localStorage.getItem("lastname"),
-      authenticated: localStorage.getItem("authenticated"),
-      back: JSON.parse(localStorage.getItem("back"))
-    })
+
   }
 
   inputHandler = (event) => {
@@ -355,7 +344,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    enableBack: (val) => dispatch({type: actions.NAVIGATION, val })
+    enableBack: (val) => dispatch({type: types.NAVIGATION, val })
   }
 }
 

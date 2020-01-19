@@ -8,21 +8,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {configureStore} from "./store";
+import LocalStorage from './utils/Storage';
 
+// cargamos la session que hubiese en localStorage
+const session = LocalStorage.readLocalStorage() || undefined;
 
-import  authReducer from "./store/reducers/auth";
-import  navReducer from "./store/reducers/nav";
-import  errorReducer from "./store/reducers/error";
-import  listReducer from "./store/reducers/list";
+const store = configureStore()(session);
 
-
-
-const store = configureStore({
-  auth: authReducer,
-  nav: navReducer,
-  err: errorReducer,
-  list: listReducer
-})();
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

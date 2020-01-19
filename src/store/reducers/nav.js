@@ -1,4 +1,4 @@
-import * as actions from "../actions";
+import * as types from "../types";
 const initialState = {
     back: false
 }
@@ -6,7 +6,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actions.NAVIGATION:
+    case types.NAVIGATION:
       return {
         ...state,
         back: action.val

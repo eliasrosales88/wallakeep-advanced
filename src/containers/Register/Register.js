@@ -2,11 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import * as actions from "../../store/actions";
+
+import * as types from "../../store/types";
 import Form from '../../components/Form/Form';
 import Input from '../../components/Form/Input'
 import Button from '../../components/Form/Button';
 import Label from '../../components/Form/Label';
+
+import LocalStorage from "../../utils/Storage";
 
 
 export class Register extends Component {
@@ -18,12 +21,15 @@ export class Register extends Component {
 
 
   componentDidMount() {
+
+    // CONDICIONAR EL ACCESO DEL REGISTER TOMANDO DEL LOCAL STORAGE
+    // REMOVER LAS LLAMADAS DEL LOCALSTORAGE QUE EXISTEN EN EL REDUX.
+    console.log(LocalStorage.readLocalStorage());
+    
     if (localStorage.getItem("authenticated")) {
       this.setState({
         authenticated: true
-      });
-
-      
+      });   
 
       this.props.history.push("list")
     }
@@ -57,9 +63,19 @@ export class Register extends Component {
     this.onBlurHandler();
 
     if (name.length > 0 && lastname.length > 0) {
-      localStorage.setItem("name", name);
-      localStorage.setItem("lastname", lastname);
-      localStorage.setItem("authenticated", "true");
+
+      LocalStorage.saveLocalStorage({
+        auth:{
+          name,
+          lastname,
+          authenticated: true
+        }
+    });
+
+      // FALTA TERMINAR DE ENLAZAR EL METODO UTILS DE LOCALSTORAGE
+      // localStorage.setItem("name", name);
+      // localStorage.setItem("lastname", lastname);
+      // localStorage.setItem("authenticated", "true");
 
       this.props.onInputHandler({
         name, lastname, auth: true
@@ -118,7 +134,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onInputHandler: (inputs) => dispatch({type: actions.LOGIN, val: inputs }),
+    onInputHandler: (inputs) => dispatch({type: types.LOGIN, val: inputs }),
   }
 }
 
