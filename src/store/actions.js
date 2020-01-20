@@ -2,6 +2,12 @@ import Axios from 'axios';
 
 import * as types from './types'
 
+
+// SACAR LA API DE AdvertDetail y AdvertForm 
+// SACAR LA API DE LAS ACCIONES (pensarlo)
+// REFACTOR DEL FORMULARIO
+
+
 const API_URL = 'http://localhost:3001/apiv1/anuncios';
 
 
