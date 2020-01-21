@@ -1,6 +1,7 @@
 import * as types from "../types";
 const initialState = {
   adverts: [],
+  advert: {},
   filters: {}
 }
 
@@ -11,6 +12,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         adverts: action.adverts
+      };
+
+    case types.SET_ADVERT:
+      return {
+        ...state,
+        advert: action.advert
       };
 
     case types.SET_TAG_FILTERS:

@@ -1,46 +1,27 @@
 import React, { Component } from 'react'
 import Advert from "../../components/Advert/Advert";
-import Axios from 'axios';
 import { withRouter } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { connect } from 'react-redux';
 
-
+// SACAR LA API DE AdvertDetail y AdvertForm 
+// REFACTOR DEL FORMULARIO
 export class AdvertDetail extends Component {
 
-  state = {
-    advert: ""
-  }
-
-
-
+  
 
   componentDidMount(){
-    Axios.get( "http://localhost:3001/apiv1/anuncios/"+ this.props.match.params.id )
-    .then( response => {
-      
-      
-      this.setState({advert: response.data.result})
-    })
-
-
-    
+    this.props.onFetchAdvert(this.props.match.params.id)
     this.props.onEnableBack(true);
-    
-
-    
   }
 
   componentWillUnmount(){
     this.props.onEnableBack(false);
-
-    
-    
-    
   }
 
   render() {
-    const { advert } = this.state;
+
+    const advert = this.props.storeAdvert;
     return (
       <div className="row mt-4">
         <div className="col-md-8 offset-md-2 col-xs-12">
@@ -63,16 +44,13 @@ export class AdvertDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-   
+   storeAdvert: state.list.advert
   };
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onEnableBack: (val) => {
-      console.log(val);
-        
-      dispatch(actions.setNav(val))
-    }
+    onEnableBack: (val) => dispatch(actions.setNav(val)),
+    onFetchAdvert: (advertId) => dispatch(actions.loadAdvert(advertId))
   }
 }
 

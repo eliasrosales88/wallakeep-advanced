@@ -37,31 +37,28 @@ const ApiService = API_URL => {
       );
     },
 
-    /**
-     * Buscar por query generica
-     */
-    searchAdverts: filters => {
-      // Endpoint
-      let baseURL = `${API_URL}/anuncios?`;
-      if (filters.name) baseURL = `${baseURL}name=${filters.name}&`;
-      if (filters.type && filters.type !== 'all')
-        baseURL = `${baseURL}venta=${filters.type === 'sell' ? true : false}&`;
-      if (filters.tag && filters.tag !== 'all')
-        baseURL = `${baseURL}tag=${filters.tag}&`;
-      const priceFrom = parseInt(filters.priceFrom);
-      const priceTo = parseInt(filters.priceTo);
-      if (priceFrom && !priceTo) {
-        baseURL = `${baseURL}price=${priceFrom}-`;
-      } else if (!priceFrom && priceTo) {
-        baseURL = `${baseURL}price=-${priceTo}&`;
-      } else if (priceFrom && priceTo) {
-        baseURL = `${baseURL}price=${priceFrom}-${priceTo}&`;
-      }
-      // Call endpoint and return
-      return Axios.get(baseURL).then(res =>
-        res.data.results.map(advert => new Advert(advert, API_URL)),
-      );
+    getTypeFilters: () => {
+      let baseURL = `${API_URL}`;
+      return Axios.get(baseURL).then(
+        response => response.data
+      )
     },
+
+    getTagFilters: () => {
+      let baseURL = `${API_URL}`;
+      return Axios.get(baseURL).then(
+        response => response.data
+      )
+    },
+    
+    getPriceFilters: () => {
+      let baseURL = `${API_URL}`;
+      return Axios.get(baseURL).then(
+        response => response.data
+      )
+      
+    },
+
 
     /**
      * Llama a la API para crear un nuevo anuncio

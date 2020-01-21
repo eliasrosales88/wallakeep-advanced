@@ -1,14 +1,9 @@
-import Axios from 'axios';
-
 import * as types from './types'
 
-
-// SACAR LA API DE AdvertDetail y AdvertForm 
-// SACAR LA API DE LAS ACCIONES (pensarlo)
-// REFACTOR DEL FORMULARIO
-
+import ApiService from "../services/ApiService";
 
 const API_URL = 'http://localhost:3001/apiv1/anuncios';
+const API_URL_V1 = 'http://localhost:3001/apiv1/';
 
 
 
@@ -30,7 +25,15 @@ export const setAdverts = (response) => {
 
   return {
     type: types.SET_ADVERTS,
-    adverts: response.results
+    adverts: response
+  };
+};
+
+export const setAdvert = (response) => {
+
+  return {
+    type: types.SET_ADVERT,
+    advert: response
   };
 };
 
@@ -78,58 +81,66 @@ export const enableNav = (val) => {
 }
 
 
-export const loadAdverts = () => {
-  return dispatch => {
-    Axios.get(API_URL)
-      .then(response => {
-        dispatch(setAdverts(response.data));
-      })
-      .catch(error => {
-        dispatch(fetchAdvertsFailed());
-      });
-  };
+export const loadAdverts = () => async (
+  dispatch) => {
+  try {
+    const adverts = await ApiService(API_URL_V1).getAdverts()
+    dispatch(setAdverts(adverts));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
+
+  }
 };
 
-export const loadTypeFilters = (type, API_FILTER) => {
-  return dispatch => {
-    Axios.get(API_URL + API_FILTER)
-      .then(response => {
-        dispatch(setAdverts(response.data));
-        dispatch(setTypeFilters(type));
-      })
-      .catch(error => {
-        dispatch(fetchAdvertsFailed());
-      });
+export const loadAdvert = (advertId) => async (
+  dispatch) => {
+  try {
+    const advert = await ApiService(API_URL_V1).getAdvert(advertId);
+    console.log(advert);
+    
+    dispatch(setAdvert(advert));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
+
+  }
+}; 
+
+export const loadTypeFilters = (type, API_FILTER) => async (
+  dispatch) => {
+  try {
+    const typeFilters = await ApiService(API_URL + API_FILTER).getTypeFilters();
+    dispatch(setAdverts(typeFilters.results));
+    dispatch(setTypeFilters(type));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
+
+  }
+};
+
+export const loadTagFilters = (tag, API_FILTER) => async (
+  dispatch) => {
+  try {
+    const tags = await ApiService(API_URL + API_FILTER).getTagFilters();
+
+    dispatch(setAdverts(tags.results));
+    dispatch(setTagFilters(tag));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
+  }
+
+}
+
+
+export const loadPriceFilters = (priceMin, priceMax, API_FILTER) => async (
+  dispatch) => {
+  try {
+    const prices = await ApiService(API_URL + API_FILTER).getPriceFilters()
+    dispatch(setAdverts(prices.results));
+    dispatch(setPriceFilters(priceMin, priceMax));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
   }
 }
-export const loadTagFilters = (tag, API_FILTER) => {
-  return dispatch => {
-    Axios.get(API_URL + API_FILTER)
-      .then(response => {
-        dispatch(setAdverts(response.data));
-        dispatch(setTagFilters(tag));
-      })
-      .catch(error => {
-        dispatch(fetchAdvertsFailed());
-      });
-  }
-}
-export const loadPriceFilters = (priceMin, priceMax, API_FILTER) => {
-  return dispatch => {
-    Axios.get(API_URL + API_FILTER)
-      .then(response => {
-
-        dispatch(setAdverts(response.data));
-        dispatch(setPriceFilters(priceMin, priceMax));
-      })
-      .catch(error => {
-        dispatch(fetchAdvertsFailed());
-      });
-  }
-}
-
-
-
 
 export const logout = () => {
   return dispatch => {
@@ -141,5 +152,5 @@ export const logout = () => {
 export const setNav = (val) => {
   return dispatch => {
     dispatch(enableNav(val));
-  } 
+  }
 }
