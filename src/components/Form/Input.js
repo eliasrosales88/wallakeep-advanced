@@ -1,31 +1,40 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { useCallback } from 'react';
 
-function Input(props) {
-    const { type, placeholder, onChange, name, className } = props;
-    const handleChange = useCallback(event => {onChange(event)}, [onChange]);
-    
-    switch (type) {
-        case "text":
-            return (
-                <Fragment>
-                    <input type= {type} name={name} className={className} placeholder={placeholder} onChange={handleChange} />
-                </Fragment>
-            )            
-        case "textarea":
-            return (
-                <Fragment>
-                    <textarea type= {type} name={name} className={className} placeholder={placeholder} onChange={handleChange} />
-                </Fragment>
-            )            
-    
-        default:
-            return (
-                <Fragment>
-                    <input type= {type} name={name} className={className} placeholder={placeholder} onChange={handleChange} />
-                </Fragment>
-            )    
-    }
+import { withFormContext } from './Form';
 
+// Comnponente Input
+// Se conecta al contexto del formulario (con hoc o useContext)
+// Toma del contexto el valor del formulario y la funcion para cambiar el valor
+// Pasa el valor y la funcion a un elemento input basandose en el name y el type
+// Puede renderizar cualquier componente que le enviemos por la prop 'component'
+// Si no le pasamos prop 'component' crea un input basico
+function Input({
+  component: Component = 'input',
+  handleChange: formHandleChange,
+  value: formValue,
+  ...props
+}) {
+  const { name, type } = props;
+
+  const valueKey = useCallback(
+    ({ checked, value }) => (type === 'checkbox' ? checked : value),
+    [type],
+  );
+
+  const handleChange = useCallback(
+    ({ target }) => {
+      formHandleChange({ [name]: valueKey(target) });
+    },
+    [formHandleChange, valueKey, name],
+  );
+
+  const inputProps = {
+    onChange: handleChange,
+    [valueKey({ checked: 'checked', value: 'value' })]: formValue[name],
+  };
+
+  return <Component {...props} {...inputProps} />;
 }
 
-export default Input;
+// Exportamos por defecto el componente conectado al contexto
+export default withFormContext(Input);

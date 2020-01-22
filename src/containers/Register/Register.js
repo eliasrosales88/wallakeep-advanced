@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from '../../components/Form/FormR';
-import Input from '../../components/Form/InputR';
+import Form from '../../components/Form/Form';
+import Input from '../../components/Form/Input';
 
 import Button from "../../components/Form/Button";
 
@@ -24,7 +24,9 @@ function Register({ userLogin }) {
   };
 
   return (
-    <div>
+    <div className="row justify-content-md-center mt-3">
+        <div className="col-md-4 col-sm-12">
+
         <Form
           initialValue={{ name: '', lastname: '' }}
           validate={({ name, lastname }) => {
@@ -37,22 +39,32 @@ function Register({ userLogin }) {
             <small id="nameHelp" className="form-text text-danger">`${error}`</small>
           }
         >
+          <div className="form-group">
             <Input
               name="name"
               type="text"
               placeholder="type your name"
+              className="form-control"
               autoComplete="username"
               
             />
+            
+          </div>
+          <div className="form-group">
             <Input
               name="lastname"
               type="text"
               placeholder="type your lastname"
+              className="form-control"
             
             />
+
+          </div>
           
           <Button className="btn btn-primary disabled" buttonText="Submit" />
         </Form>
+        </div>
+
     </div>
   );
 }
