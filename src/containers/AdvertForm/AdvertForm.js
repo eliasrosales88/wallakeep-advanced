@@ -31,16 +31,8 @@ export class AdvertForm extends Component {
 
     }
 
-
     this.props.onEnableBack(true);
-    // this.props.onFetchTags();
 
-
-    Axios.get( "http://localhost:3001/apiv1/tags" )
-    .then( response => {
-      localStorage.setItem("tags", response.data.results);
-
-    })
   }
 
   componentWillUnmount(){
