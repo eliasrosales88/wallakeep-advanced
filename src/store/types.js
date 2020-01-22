@@ -11,3 +11,4 @@ export const FETCH_ADVERTS_FAILED = 'FETCH_ADVERTS_FAILED';
 export const SET_FILTERS = 'SET_FILTERS';
 export const SET_TYPE_FILTERS = 'SET_TYPE_FILTERS';
 export const SET_TAG_FILTERS = 'SET_TAG_FILTERS';
+export const SET_TAGS = 'SET_TAGS';

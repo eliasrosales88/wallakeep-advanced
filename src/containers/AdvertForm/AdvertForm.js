@@ -20,25 +20,26 @@ export class AdvertForm extends Component {
     submitted: false
   };
 
-  
-  
+
+
   componentDidMount(){
     if (this.props.match.params.type === "edit") {
       Axios.get( "http://localhost:3001/apiv1/anuncios/" + this.props.match.params.id )
       .then( response => {
         this.setState({advert:response.data.result});
       })
-      
+
     }
 
 
     this.props.onEnableBack(true);
-    
-    
+    // this.props.onFetchTags();
+
+
     Axios.get( "http://localhost:3001/apiv1/tags" )
     .then( response => {
       localStorage.setItem("tags", response.data.results);
-      
+
     })
   }
 
@@ -54,7 +55,7 @@ export class AdvertForm extends Component {
     this.setState({
       advert:{
         ...this.state.advert,
-        [name]: value 
+        [name]: value
       }
     });
   }
@@ -62,29 +63,29 @@ export class AdvertForm extends Component {
   handleCheckbox = (event) => {
     const { name } = event.target;
     const { tags } = this.state.advert;
-    
+
     let tagsToChange = tags;
 
     tagsToChange.includes(name) ? tagsToChange.splice(tagsToChange.indexOf(name),1) : tagsToChange.push(name);
-    
+
 
     this.setState({
       [name]: tagsToChange
     });
   }
 
-  
+
   onSubmit = (event) => {
     event.preventDefault();
 
-    
+
     Axios.put( "http://localhost:3001/apiv1/anuncios/"+ this.props.match.params.id, this.state.advert )
     .then( response => {
       this.setState({
         advert:{...response.data.result},
         submitted: true
       });
-      
+
     })
 
     }
@@ -100,18 +101,18 @@ export class AdvertForm extends Component {
         type:  type.length === 0 ? "sell" : type,
         photo: "/images/anuncios/default.jpg"
       }
-      
+
       Axios.post("http://localhost:3001/apiv1/anuncios/", advertToCreate)
         .then( response => {
           this.setState({
             advert:{...response.data.result},
             submitted: true
           });
-          
+
         })
     }
 
-  
+
   render() {
     const {  _id, name, description, price, photo, type, createdAt, updatedAt } = this.state.advert;
     const submitted = this.state.submitted;
@@ -119,7 +120,7 @@ export class AdvertForm extends Component {
       <Fragment>
         <div className="row mt-4">
           <div className="offset-md-3 col-md-6 col-xs-12 mb-5 ">
-          
+
           {this.props.match.params.type === "edit" &&
             <Fragment>
               <div className="card">
@@ -129,42 +130,42 @@ export class AdvertForm extends Component {
               <p><b>CreatedAt:</b> {createdAt}</p>
               <p><b>UpdatedAt:</b> {updatedAt}</p>
               <p><b>type:</b> {type}</p>
-            
+
               <form onSubmit={this.onSubmit}>
                   <Fragment>
                     <div className="form-group">
                       <label htmlFor="name">Name</label>
                       <input type="text" name="name" value={name} onChange={this.inputHandler} className="form-control" id="name" aria-describedby="name" placeholder="Enter name" />
                     </div>
-                  
+
                     <div className="form-group">
                       <label htmlFor="price">Price</label>
-                      <input 
-                        type="text" 
-                        id="price" 
-                        className="form-control" 
-                        placeholder=" Enter price" 
-                        name="price" 
-                        value={price} 
-                        onChange={this.inputHandler} 
-                      /> 
-                    </div>
-                  
-                  
-                    <div className="form-group">
-                      <label htmlFor="description">Description</label>
-                      <textarea 
-                        type="text" 
-                        id="description" 
-                        className="form-control" 
-                        placeholder=" Enter Description" 
-                        name="description" 
-                        value={description} 
-                        onChange={this.inputHandler} 
+                      <input
+                        type="text"
+                        id="price"
+                        className="form-control"
+                        placeholder=" Enter price"
+                        name="price"
+                        value={price}
+                        onChange={this.inputHandler}
                       />
                     </div>
 
-                    <div><b>Tags</b></div> 
+
+                    <div className="form-group">
+                      <label htmlFor="description">Description</label>
+                      <textarea
+                        type="text"
+                        id="description"
+                        className="form-control"
+                        placeholder=" Enter Description"
+                        name="description"
+                        value={description}
+                        onChange={this.inputHandler}
+                      />
+                    </div>
+
+                    <div><b>Tags</b></div>
                     <div className="form-check">
                       <input
                         name= "lifestyle"
@@ -175,7 +176,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">lifestyle</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "mobile"
@@ -186,7 +187,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">mobile</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "motor"
@@ -197,7 +198,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">motor</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "work"
@@ -208,7 +209,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">work</label>
                     </div>
-  
+
                     <div className="form-group">
                       <div>Type</div>
                         <select value={type} name="type" className="form-control" onChange={this.inputHandler}>
@@ -216,7 +217,7 @@ export class AdvertForm extends Component {
                           <option value="buy">buy</option>
                         </select>
                     </div>
-                  </Fragment>   
+                  </Fragment>
                 <button type="submit" className="btn btn-primary disabled">Submit Changes</button>
                 {submitted &&
                   <Fragment>
@@ -232,43 +233,43 @@ export class AdvertForm extends Component {
               <form onSubmit={this.createHandler}>
                 <div className="form-group">
                   <label htmlFor="name">Title</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    className="form-control" 
-                    placeholder=" Enter name" 
-                    name="name" 
-                    value={name} 
-                    onChange={this.inputHandler} 
-                  /> 
+                  <input
+                    type="text"
+                    id="name"
+                    className="form-control"
+                    placeholder=" Enter name"
+                    name="name"
+                    value={name}
+                    onChange={this.inputHandler}
+                  />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="price">Price</label>
-                  <input 
-                    type="text" 
-                    id="price" 
-                    className="form-control" 
-                    placeholder=" Enter price" 
-                    name="price" 
-                    value={price} 
-                    onChange={this.inputHandler} 
-                  /> 
-                </div>
-                  
-                <div className="form-group">
-                  <label htmlFor="description">Description</label>
-                  <textarea 
-                    type="text" 
-                    id="description" 
-                    className="form-control" 
-                    placeholder=" Enter Description" 
-                    name="description" 
-                    value={description} 
-                    onChange={this.inputHandler} 
+                  <input
+                    type="text"
+                    id="price"
+                    className="form-control"
+                    placeholder=" Enter price"
+                    name="price"
+                    value={price}
+                    onChange={this.inputHandler}
                   />
                 </div>
-                <div><b>Tags</b></div> 
+
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    type="text"
+                    id="description"
+                    className="form-control"
+                    placeholder=" Enter Description"
+                    name="description"
+                    value={description}
+                    onChange={this.inputHandler}
+                  />
+                </div>
+                <div><b>Tags</b></div>
                     <div className="form-check">
                       <input
                         name= "lifestyle"
@@ -279,7 +280,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">lifestyle</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "mobile"
@@ -290,7 +291,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">mobile</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "motor"
@@ -301,7 +302,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">motor</label>
                     </div>
-  
+
                     <div className="form-check">
                       <input
                         name= "work"
@@ -312,7 +313,7 @@ export class AdvertForm extends Component {
                       />
                       <label className="form-check-label">work</label>
                     </div>
-  
+
                     <div className="form-group">
                       <div>Type</div>
                         <select value={type} name="type" className="form-control" onChange={this.inputHandler}>
@@ -338,12 +339,13 @@ export class AdvertForm extends Component {
 
 const mapStateToProps = state => {
   return {
-   
+   storeTags: state.tags
   };
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onEnableBack: (val) => dispatch(actions.setNav(val))
+    onEnableBack: (val) => dispatch(actions.setNav(val)),
+    onFetchTags: () => dispatch(actions.loadTags())
   }
 }
 

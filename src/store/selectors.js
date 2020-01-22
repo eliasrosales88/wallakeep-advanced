@@ -1,8 +1,6 @@
-export const getAuth = state => state.auth.authenticated;
+export const getSession = state => state.session;
 
 export const isUserRegistered = state => {
-  const auth = getAuth(state);
-  
-
-  return auth;
+  const session = getSession(state);
+  return Boolean(session && session.name);
 };

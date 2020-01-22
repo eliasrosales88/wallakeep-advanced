@@ -21,6 +21,7 @@ export class AdvertList extends Component {
   }
   
   componentDidMount () {
+    
     this.props.onFetchAdverts();
   }
 

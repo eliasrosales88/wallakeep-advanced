@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import AdvertList from '../../components/AdverList/AdvertList'
 import { Route, Switch, withRouter } from "react-router-dom";
-import Register from '../Register/Register';
+import Register from '../Register';
 import AdvertDetail from '../AdvertDetail/AdvertDetail';
 import AdvertForm from '../AdvertForm/AdvertForm';
 
@@ -37,9 +37,6 @@ export class Layout extends Component {
   }
 
   render() {
-    console.log('storeAuth', this.props.storeAuth);
-    console.log('storeBack', this.props.storeBack);
-
     return (
       <Fragment>
         <nav className="navbar navbar-dark bg-primary">
@@ -51,7 +48,7 @@ export class Layout extends Component {
           <h2 className="text-white">Wallakeep </h2>
           <span>
             <span className="text-white">{this.props.storeName} {this.props.storeLastname}</span>
-            {this.props.storeAuth &&
+            {this.props.storeAuth !== null &&
               <span className="text-white ml-1" onClick={this.logOutHandler}>
                 |<span className="text-white ml-1 logout">Logout</span>
               </span>
@@ -75,9 +72,9 @@ export class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    storeName: state.auth.name,
-    storeLastname: state.auth.lastname,
-    storeAuth: state.auth.authenticated,
+    storeName: state.session.name,
+    storeLastname: state.session.lastname,
+    storeAuth: state.session.name,
     storeBack: state.nav.back
   };
 }

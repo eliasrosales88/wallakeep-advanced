@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { Provider } from "react-redux";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,21 +11,26 @@ import LocalStorage from './utils/Storage';
 
 import * as types from './store/types'
 
-// cargamos la session que hubiese en localStorage
-const session = LocalStorage.readLocalStorage() || {};
+// histórico del browser
+// const history = createBrowserHistory();
 
-const store = configureStore()(session);
+// cargamos la session que hubiese en localStorage
+const session = LocalStorage.readLocalStorage() || undefined
+
+const store = configureStore()({session});
 
 
 store.subscribe(() => {
 
-  console.log(store.getState());
-  const { auth, lastAction } = store.getState();
+  const { session, lastAction } = store.getState();
 
   if (lastAction.type === types.SESSION_SAVE) {
-    LocalStorage.saveLocalStorage({auth});
+    LocalStorage.saveLocalStorage({...session});
   }
-
+  
+  if (lastAction.type === types.SET_TAGS) {
+    LocalStorage.saveTagsLS(lastAction.tags)
+  }
   if (lastAction.type === types.SESSION_CLEAR) {
     LocalStorage.clearLocalStorage();
   }

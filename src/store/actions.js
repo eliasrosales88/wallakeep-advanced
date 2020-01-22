@@ -16,6 +16,17 @@ export const clearSessionLS = () => ({
   type: types.SESSION_CLEAR,
 });
 
+
+export const userLogin = (...args) => (dispatch, _getState, { history }) => {
+  dispatch(saveSession(...args));
+  // history.push('list');
+};
+
+export const userLogout = (...args) => (dispatch, _getState, { history }) => {
+  dispatch(clearSessionLS(...args));
+  history.push('/');
+};
+
 export const clearAuthRedux = () => ({
   type: types.LOGOUT,
 })
@@ -53,6 +64,16 @@ export const setTagFilters = (tags) => {
     }
   };
 };
+
+export const setTags = (response) => {
+  return {
+    type: types.SET_TAGS,
+      tags: response
+  };
+};
+
+
+
 export const setPriceFilters = (priceMin, priceMax) => {
 
   return {
@@ -96,14 +117,13 @@ export const loadAdvert = (advertId) => async (
   dispatch) => {
   try {
     const advert = await ApiService(API_URL_V1).getAdvert(advertId);
-    console.log(advert);
-    
+
     dispatch(setAdvert(advert));
   } catch (error) {
     dispatch(fetchAdvertsFailed());
 
   }
-}; 
+};
 
 export const loadTypeFilters = (type, API_FILTER) => async (
   dispatch) => {
@@ -141,6 +161,21 @@ export const loadPriceFilters = (priceMin, priceMax, API_FILTER) => async (
     dispatch(fetchAdvertsFailed());
   }
 }
+
+export const loadTags = () => async (
+  dispatch) => {
+  try {
+    const tags = await ApiService(API_URL_V1).getTags();
+    console.log(tags);
+    
+    dispatch(setTags(tags));
+  } catch (error) {
+    dispatch(fetchAdvertsFailed());
+  }
+
+}
+
+
 
 export const logout = () => {
   return dispatch => {

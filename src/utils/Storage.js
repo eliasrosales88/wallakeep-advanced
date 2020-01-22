@@ -9,6 +9,12 @@ const LocalStorage = {
     localStorage.setItem('session', JSON.stringify(session));
   },
   /**
+   * Salvar TAGS
+   */
+  saveTagsLS: tags => {
+    localStorage.setItem('tags', JSON.stringify(tags));
+  },
+  /**
    * Recuperar sesión del local storage
    */
   readLocalStorage: () => {
